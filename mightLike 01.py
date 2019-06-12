@@ -12,6 +12,18 @@ winY = 500
 pSq = Rectangle (Point(0, 450), Point(500,500))
 pSq.setFill(color_rgb(250,250, 250))
 pSq.draw(shapesWin)
+
+#Input1
+inputBox = Entry(Point(400,475), 20)
+inputStr = inputBox.getText()
+#inputBox.setText("32.0")
+#inputBox.setFace("courier")
+#inputBox.setSize(25)
+#inputBox.setStyle("italic")
+inputBox.setTextColor("Black")
+#inputBox.setFill("white")
+inputBox.draw(shapesWin)
+
 #Rec2
 pSq = Rectangle (Point(0, 400), Point(500,350))
 pSq.setFill(color_rgb(250,250, 250))
@@ -34,13 +46,9 @@ pSq.draw(shapesWin)
 message = Text(Point (100, 475) , "What is the title of your favorite song?")
 message.draw(shapesWin)
 
-#Input1
-inputBox = Entry(point(3,4), 20)
-centerPoint = inputBox.getAnchor()
-inputStr = inputBox.getText()
-inputBox.setText("32.0")
+
 #Box2
-message = Text(Point (100, 375) , "Who is the creator of yor song?")
+message = Text(Point (100, 375) , "Who is the creator of your song?")
 message.draw(shapesWin)
 #Box3
 message = Text(Point (100, 275) , "Who is the performer on the song?")
