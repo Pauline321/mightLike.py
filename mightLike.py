@@ -14,40 +14,48 @@ uSgen = "rap"
 utop =  "love"
 uMood = "upbeat"
 uDinst = "synthesizer"
-uInsk = 7
-uLyr =  8
-uVoc = 8
-uMel = 9
-uRhy = 9
-uDdr = 8
-Tpo = 7
+uInsk = 7 # maxVar 0
+uLyr =  8 # maxVar 1
+uVoc = 8  # maxVar 2
+uMel = 9  # maxVar 3
+uRhy = 8  # maxVar 4
+uDdr = 8  # maxVar 5
+Tpo = 7   # maxVar 6
 
-subjInt = (uInsk, uLyr, uVoc, uMel, uRhy, uDdr, Tpo)
+subjInt = (uInsk, uLyr, uVoc, uMel, uRhy, uDdr, Tpo) # Tuple of subjective integers
 
 sList = [] # This list will hold all the songs from our library.
-dinstMatches = [] # This list will hold dinst matches.
+mvMatches = [] # This list will hold max value matches.
 
-sList = [row for row in csv.reader(open("sLibS19.tsv", encoding='utf-8'), delimiter="\t")]
+sList = [row for row in csv.reader(open("sLibS19.tsv", encoding='utf-8'), delimiter="\t")] # Load song library.
 
-del sList[0]
-del sList[0]
+del sList[0] # Delete column titles from song lib.
+del sList[0] # Delete columns data types frpm song lib.
 
-for song in range(len(sList)):
-    sList[song][4] = int(sList[song][4])
+for songNum in range(len(sList)):
+    sList[songNum][4] = int(sList[songNum][4]) # Transform rec date from string to integer.
+
+for songNum in range(len(sList)): # Transform subj ints from strings to integers.
+    for elemNum in range(7):
+        sList[songNum][elemNum + 10] = int(sList[songNum][elemNum + 10])
 
 ##for song in range(5):
 ##    print (sList[song])
 
-maxVal = max(subjInt)
+maxVal = max(subjInt) # Find max of subj. int.s.
 print(maxVal)
-maxVars = [i for i, j in enumerate(subjInt) if j == maxVal]
-print(maxVars)
+maxVars = [i for i, j in enumerate(subjInt) if j == maxVal] # Find positions in tuple of subj. int.s.
+print(maxVars)  # songVar index = maxVar + 10
+maxVV = maxVars[0]
+print(maxVV + 10)
 
 for songNum in range(len(sList)):
-    if uDinst == sList[songNum][9]:
-        dinstMatches.append(sList[songNum])
+    if sList[songNum][maxVV + 10] == maxVal:
+        print("---*---")
+        mvMatches.append(sList[songNum])
 
-print("There are", len(dinstMatches), "matches for dominant instruments.")
+print("There are", len(mvMatches), "matches for that maximum rating.")
+print(mvMatches[0]) 
 
-if dinstMatches == 1:
-    print("You may also like", dinstMatch[0][0], "by", dinstMatch[0][1])
+##if dinstMatches == 1:
+##    print("You may also like", dinstMatch[0][0], "by", dinstMatch[0][1])
