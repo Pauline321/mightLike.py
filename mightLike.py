@@ -26,6 +26,7 @@ subjInt = (uInsk, uLyr, uVoc, uMel, uRhy, uDdr, Tpo) # Tuple of subjective integ
 
 sList = [] # This list will hold all the songs from our library.
 mvMatches = [] # This list will hold max value matches.
+genMatches = [] # This list will hold genre matches.
 
 sList = [row for row in csv.reader(open("sLibS19.tsv", encoding='utf-8'), delimiter="\t")] # Load song library.
 
@@ -55,7 +56,17 @@ for songNum in range(len(sList)):
         mvMatches.append(sList[songNum])
 
 print("There are", len(mvMatches), "matches for that maximum rating.")
-print(mvMatches[0]) 
+print(mvMatches[0])
+
+for songNum in range(len(mvMatches)):
+    if mvMatches[songNum][5] == uGen:
+        genMatches.append(mvMatches[songNum])
+
+print("There are", len(genMatches), "matches for that maximum rating.")
+print(genMatches[0])
+
+
+        
 
 ##if dinstMatches == 1:
 ##    print("You may also like", dinstMatch[0][0], "by", dinstMatch[0][1])
