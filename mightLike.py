@@ -11,7 +11,7 @@ uLang = "english"
 uRec =  2019
 uGen = "hip-hop"
 uSgen = "rap"
-utop =  "love"
+uTop =  "sad"
 uMood = "upbeat"
 uDinst = "synthesizer"
 uInsk = 7 # maxVar 0
@@ -27,7 +27,7 @@ subjInt = (uInsk, uLyr, uVoc, uMel, uRhy, uDdr, Tpo) # Tuple of subjective integ
 sList = [] # This list will hold all the songs from our library.
 mvMatches = [] # This list will hold max value matches.
 genMatches = [] # This list will hold genre matches.
-
+topMatches = [] # This list will hold topic matches
 sList = [row for row in csv.reader(open("sLibS19.tsv", encoding='utf-8'), delimiter="\t")] # Load song library.
 
 del sList[0] # Delete column titles from song lib.
@@ -50,23 +50,74 @@ print(maxVars)  # songVar index = maxVar + 10
 maxVV = maxVars[0]
 print(maxVV + 10)
 
+#------max value matches Search 1 ------
 for songNum in range(len(sList)):
     if sList[songNum][maxVV + 10] == maxVal:
-        print("---*---")
+        #print("---*---")
         mvMatches.append(sList[songNum])
 
 print("There are", len(mvMatches), "matches for that maximum rating.")
-print(mvMatches[0])
+#print(mvMatches[0])
 
-for songNum in range(len(mvMatches)):
-    if mvMatches[songNum][5] == uGen:
-        genMatches.append(mvMatches[songNum])
+search2 = []
 
-print("There are", len(genMatches), "matches for that maximum rating.")
+if len(mvMatches) == 1:
+    print("You may also like", mvMatches[0][0], "by", mvMatches[0][1], ".")
+    exit()
+elif len(mvMatches) > 1:
+    search2 = mvMatches
+else:
+    search2 = sList
+print(len(search2))
+#-------genre matches Search 2 ---------
+for songNum in range(len(search2)):
+    if search2[songNum][5] == uGen:
+        genMatches.append(search2[songNum])
+
+print("There are", len(genMatches), "matches for that genre.")
 print(genMatches[0])
 
+search3 = []
+
+if len(genMatches) == 1:
+    print("You may also like", genMatches[0][0], "by", genMatches[0][1], ".")
+    exit()
+elif len(genMatches) > 1:
+    search3 = genMatches
+else:
+    if len(mvMatches) == 0:
+        search3 = sList
+    else:
+        search3 = mvMatches
+print(len(search3))
+
+
+
+#------topic matches---------
+for songNum in range (len(genMatches)):
+    if genMatches[songNum][8] == uTop:
+        topMatches.append(genMatches[songNum])
+
+print("There are", len(topMatches), "matches for that topic.")
+print( topMatches[0])
+
+search4 = []
+
+if len(topMatches) == 1:
+    print("You may also like", topMatches[0][0], "by", topMatches[0][1], ".") 
+    exit()
+elif len(topMatches) > 1:
+    search4 = topMatches
+else:
+    search4 = sList
+print(len(search4))
+
+print(search4)
 
         
 
-##if dinstMatches == 1:
-##    print("You may also like", dinstMatch[0][0], "by", dinstMatch[0][1])
+
+
+
+
+
